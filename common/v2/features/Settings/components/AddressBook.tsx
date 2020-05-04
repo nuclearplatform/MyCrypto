@@ -74,6 +74,11 @@ const SEditableText = styled(EditableText)`
   }
 `;
 
+const AddressBookTableContainer = styled.div`
+  max-height: 600px;
+  overflow: auto;
+`;
+
 export default function AddressBook({
   addressBook,
   addressBookRestore,
@@ -196,7 +201,9 @@ export default function AddressBook({
         </>
       }
     >
-      <CollapsibleTable breakpoint={450} {...addressBookTable} />
+      <AddressBookTableContainer>
+        <CollapsibleTable breakpoint={450} {...addressBookTable} />
+      </AddressBookTableContainer>
       <BottomRow>
         <AddAccountButton onClick={toggleFlipped} basic={true}>
           {`+ ${translateRaw('ADDRESS_BOOK_TABLE_ADD_ADDRESS')}`}

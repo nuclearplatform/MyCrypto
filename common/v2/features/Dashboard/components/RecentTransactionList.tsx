@@ -19,6 +19,7 @@ import {
   txIsPending,
   txIsSuccessful
 } from '@services/Store/helpers';
+import { COLORS } from '@theme';
 
 import NoTransactions from './NoTransactions';
 import TransactionLabel from './TransactionLabel';
@@ -27,7 +28,11 @@ import newWindowIcon from '@assets/images/icn-new-window.svg';
 import transfer from '@assets/images/transactions/transfer.svg';
 import inbound from '@assets/images/transactions/inbound.svg';
 import outbound from '@assets/images/transactions/outbound.svg';
-import { COLORS } from '@theme';
+import approval from '@assets/images/transactions/approval.svg';
+import contractInteract from '@assets/images/transactions/contract-interact.svg';
+import contractDeploy from '@assets/images/transactions/contract-deploy.svg';
+import defizap from '@assets/images/transactions/defizap.svg';
+import membershipPurchase from '@assets/images/transactions/membership-purchase.svg';
 
 interface Props {
   className?: string;
@@ -70,6 +75,33 @@ const TxTypeConfig: ITxTypeConfig = {
         $ticker: asset.ticker || translateRaw('UNKNOWN')
       }),
     icon: transfer
+  },
+  [ITxHistoryType.DEFIZAP]: {
+    label: (asset: Asset) =>
+      translateRaw('RECENT_TX_LIST_LABEL_DEFIZAP_ADD', {
+        $ticker: asset.ticker || 'Unknown'
+      }),
+    icon: defizap
+  },
+  [ITxHistoryType.PURCHASE_MEMBERSHIP]: {
+    label: (_: Asset) => translateRaw('RECENT_TX_LIST_LABEL_MEMBERSHIP_PURCHASED'),
+    icon: membershipPurchase
+  },
+  [ITxHistoryType.SWAP]: {
+    label: (_: Asset) => translateRaw('RECENT_TX_LIST_LABEL_SWAP'),
+    icon: swap
+  },
+  [ITxHistoryType.APPROVAL]: {
+    label: (_: Asset) => translateRaw('RECENT_TX_LIST_LABEL_APPROVAL'),
+    icon: approval
+  },
+  [ITxHistoryType.CONTRACT_INTERACT]: {
+    label: (_: Asset) => translateRaw('RECENT_TX_LIST_LABEL_CONTRACT_INTERACT'),
+    icon: contractInteract
+  },
+  [ITxHistoryType.DEPLOY_CONTRACT]: {
+    label: (_: Asset) => translateRaw('RECENT_TX_LIST_LABEL_CONTRACT_DEPLOY'),
+    icon: contractDeploy
   }
 };
 
@@ -79,11 +111,17 @@ export const deriveTxType = (accountsList: StoreAccount[], tx: ITxReceipt) => {
     accountsList.find((account) => account.address.toLowerCase() === tx.from.toLowerCase());
   const toAccount =
     tx.to && accountsList.find((account) => account.address.toLowerCase() === tx.to.toLowerCase());
-  return !fromAccount || !toAccount
-    ? fromAccount
-      ? ITxType.OUTBOUND
-      : ITxType.INBOUND
-    : ITxType.TRANSFER;
+  let txType = tx && tx.tx ? tx.txType : ITxHistoryType.STANDARD;
+  txType = txType === ITxHistoryType.UNKNOWN ? ITxHistoryType.STANDARD : txType;
+  if (txType === ITxHistoryType.STANDARD) {
+    txType =
+      !fromAccount || !toAccount
+        ? fromAccount
+          ? ITxHistoryType.OUTBOUND
+          : ITxHistoryType.INBOUND
+        : ITxHistoryType.TRANSFER;
+  }
+  return txType;
 };
 
 const SAssetIcon = styled(AssetIcon)`
@@ -226,11 +264,13 @@ export default function RecentTransactionList({ accountsList, className = '' }: 
       //actionLink="/dashboard/recent-transactions"
       className={`RecentTransactionsList ${className}`}
     >
-      {filteredGroups.length >= 1 ? (
-        <CollapsibleTable breakpoint={1000} {...recentTransactionsTable} />
-      ) : (
-        NoTransactions()
-      )}
+      <RecentTxsTableContainer>
+        {filteredGroups.length >= 1 ? (
+          <CollapsibleTable breakpoint={1000} {...recentTransactionsTable} />
+        ) : (
+          NoTransactions()
+        )}
+      </RecentTxsTableContainer>
     </DashboardPanel>
   );
 }
