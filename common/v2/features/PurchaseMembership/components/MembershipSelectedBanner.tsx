@@ -54,7 +54,7 @@ const CostText = styled(Typography)`
 
 const MembershipSelectedBanner = ({ membershipSelected }: Props) => {
   const { assets } = useContext(AssetContext);
-  const asset = assets.find(a => a.uuid === membershipSelected.assetUUID) as Asset;
+  const asset = assets.find((a) => a.uuid === membershipSelected.assetUUID) as Asset;
   return (
     <BannerContainer>
       <MembershipWrapper>
@@ -70,7 +70,7 @@ const MembershipSelectedBanner = ({ membershipSelected }: Props) => {
       </MembershipWrapper>
       <CostWrapper>
         <CostText as="div">
-          {translateRaw('COST')} <Tooltip tooltip="TODO" />
+          {translateRaw('COST')} <Tooltip tooltip={translateRaw('MEMBERSHIP_COST_TOOLTIP')} />
         </CostText>
         <Price as="div" bold={true}>
           {membershipSelected.price} {asset.ticker}
