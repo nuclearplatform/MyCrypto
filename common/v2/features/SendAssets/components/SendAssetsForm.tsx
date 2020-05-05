@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Field, FieldProps, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@mycrypto/ui';
@@ -67,7 +67,7 @@ import { RatesContext } from 'v2/services/RatesProvider';
 import TransactionFeeDisplay from 'v2/components/TransactionFlow/displays/TransactionFeeDisplay';
 import { formatSupportEmail, isFormValid as checkFormValid, ETHUUID } from 'v2/utils';
 import { InlineMessageType } from 'v2/types/inlineMessages';
-import { ProtectTxUtils, ProtectTxError } from 'v2/features/ProtectTransaction';
+import { ProtectTxUtils } from 'v2/features/ProtectTransaction';
 import { ProtectTxShowError, ProtectTxButton } from 'v2/features/ProtectTransaction/components';
 import { ProtectTxContext } from 'v2/features/ProtectTransaction/ProtectTxProvider';
 import { useEffectOnce } from 'v2/vendor';
@@ -298,6 +298,15 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
               });
             }
           });
+
+          useEffect(() => {
+            if (getProTxValue(['state']).protectTxShow) {
+              if (getProTxValue(['goToInitialStepOrFetchReport'])) {
+                const { address, network } = values;
+                getProTxValue(['goToInitialStepOrFetchReport'])(address.value, network);
+              }
+            }
+          }, [values]);
 
           const toggleAdvancedOptions = () => {
             setFieldValue('advancedTransaction', !values.advancedTransaction);
@@ -650,16 +659,6 @@ const SendAssetsForm = ({ txConfig, onComplete }: IStepComponentProps) => {
 
               {getProTxValue() && (
                 <ProtectTxButton
-                  disabled={
-                    isEstimatingGasLimit ||
-                    isResolvingName ||
-                    isEstimatingNonce ||
-                    !isFormValid ||
-                    ProtectTxUtils.checkFormForProtectedTxErrors(
-                      values,
-                      getAssetRate(values.asset)
-                    ) !== ProtectTxError.NO_ERROR
-                  }
                   onClick={(e) => {
                     e.preventDefault();
 
