@@ -3,6 +3,7 @@ import { ResolutionError } from '@unstoppabledomains/resolution';
 import styled from 'styled-components';
 
 import translate, { translateRaw } from 'v2/translations';
+import { InlineMessageType } from 'v2/types';
 
 import { Spinner } from './Spinner';
 import { InlineMessage } from './InlineMessage';
@@ -21,7 +22,9 @@ const InlineError = styled(InlineMessage)`
   }
 `;
 
-const withInlineError = (children: JSX.Element) => <InlineError>{children}</InlineError>;
+const withInlineError = (children: JSX.Element, type?: InlineMessageType) => (
+  <InlineError type={type}>{children}</InlineError>
+);
 
 export const DomainStatus: React.FC<DomainStatusProps> = (props: DomainStatusProps) => {
   const parseError = (resolutionError?: ResolutionError) => {
@@ -48,6 +51,7 @@ export const DomainStatus: React.FC<DomainStatusProps> = (props: DomainStatusPro
   return withInlineError(
     <div data-testid="domainStatus">{`${translateRaw('SEND_ASSETS_DID_RESOLVE')}: ${
       props.rawAddress
-    }`}</div>
+    }`}</div>,
+    InlineMessageType.INFO_ARROW
   );
 };
