@@ -26,7 +26,7 @@ interface Props {
   error?: string | ErrorObject;
   className?: string;
   fieldName: string;
-  value?: string;
+  resolvedAddress?: string;
   placeholder?: string;
   network?: Network;
   isLoading: boolean;
@@ -82,7 +82,7 @@ function ETHAddressField({
   isLoading,
   isError,
   isResolvingName,
-  value,
+  resolvedAddress,
   resolutionError,
   handleDomainResolve,
   onBlur,
@@ -99,7 +99,7 @@ function ETHAddressField({
         name={fieldName}
         validateOnChange={false}
         render={({ field, form }: FieldProps) => {
-          const val = value ? value : field.value.value;
+          const value = resolvedAddress ? resolvedAddress : field.value.value;
           return (
             <Wrapper className={className}>
               <InputWrapper>
@@ -146,8 +146,8 @@ function ETHAddressField({
               </InputWrapper>
               {(field.value && isValidENSName(field.value.value)) || isResolvingName ? (
                 <DomainStatus
-                  domain={val}
-                  rawAddress={val}
+                  domain={value}
+                  rawAddress={value}
                   isLoading={isLoading}
                   isError={isError}
                   resolutionError={resolutionError}
