@@ -262,22 +262,6 @@ function Interact(props: CombinedProps) {
     }
   }, []);
 
-  useEffect(() => {
-    if (
-      !getNetworkById(networkIdFromUrl, networks) ||
-      areFieldsPopulatedFromUrl ||
-      contracts.length === 0 ||
-      !addressFromUrl
-    ) {
-      return;
-    }
-
-    if (addressFromUrl) {
-      handleAddressOrDomainChanged(addressFromUrl);
-    }
-    setAreFieldsPopulatedFromUrl(true);
-  }, [contracts]);
-
   const customEditingMode = contract && contract.address === CUSTOM_CONTRACT_ADDRESS;
 
   const initialFormikValues: { address: IReceiverAddress } = {
@@ -297,6 +281,27 @@ function Interact(props: CombinedProps) {
         const isValid =
           Object.values(errors).filter((e) => e !== undefined && e.value !== undefined).length ===
           0;
+
+        useEffect(() => {
+          if (
+            !getNetworkById(networkIdFromUrl, networks) ||
+            areFieldsPopulatedFromUrl ||
+            contracts.length === 0 ||
+            !addressFromUrl
+          ) {
+            return;
+          }
+
+          if (addressFromUrl) {
+            handleAddressOrDomainChanged(addressFromUrl);
+            setFieldValue('address', {
+              display: addressFromUrl,
+              value: addressFromUrl
+            });
+          }
+          setAreFieldsPopulatedFromUrl(true);
+        }, [contracts]);
+
         return (
           <>
             <NetworkSelectorWrapper>
