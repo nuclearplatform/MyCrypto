@@ -9,154 +9,132 @@ import { requiresDesktopApp } from './helpers';
 const CreateWallet = lazy(() =>
   import(
     /* webpackChunkName: "CreateWallet" */
-    /* webpackPrefetch: true */
     'v2/features/CreateWallet/CreateWallet'
   )
 );
 const AddAccountFlow = lazy(() =>
   import(
     /* webpackChunkName: "AddAccountFlow" */
-    /* webpackPrefetch: true */
     'v2/features/AddAccount/AddAccountFlow'
   )
 );
 const SendAssets = lazy(() =>
   import(
     /* webpackChunkName: "SendAssets" */
-    /* webpackPrefetch: true */
     'v2/features/SendAssets/SendAssets'
   )
 );
 const Mnemonic = lazy(() =>
   import(
     /* webpackChunkName: "Mnemonic" */
-    /* webpackPrefetch: true */
     'v2/features/CreateWallet/Mnemonic/Mnemonic'
   )
 );
 const Keystore = lazy(() =>
   import(
     /* webpackChunkName: "Keystore" */
-    /* webpackPrefetch: true */
     'v2/features/CreateWallet/Keystore/Keystore'
   )
 );
 const Settings = lazy(() =>
   import(
     /* webpackChunkName: "Settings" */
-    /* webpackPrefetch: true */
     'v2/features/Settings/Settings'
   )
 );
 const Import = lazy(() =>
   import(
     /* webpackChunkName: "Import" */
-    /* webpackPrefetch: true */
     'v2/features/Settings/Import/Import'
   )
 );
 const Export = lazy(() =>
   import(
     /* webpackChunkName: "Export" */
-    /* webpackPrefetch: true */
     'v2/features/Settings/Export/Export'
   )
 );
 const DownloadApp = lazy(() =>
   import(
     /* webpackChunkName: "DownloadApp" */
-    /* webpackPrefetch: true */
     'v2/features/DownloadApp/DownloadApp'
   )
 );
 const ScreenLockNew = lazy(() =>
   import(
     /* webpackChunkName: "ScreenLockNew" */
-    /* webpackPrefetch: true */
     'v2/features/ScreenLock/ScreenLockNew'
   )
 );
 const ScreenLockLocked = lazy(() =>
   import(
     /* webpackChunkName: "ScreenLockLocked" */
-    /* webpackPrefetch: true */
     'v2/features/ScreenLock/ScreenLockLocked'
   )
 );
 const ScreenLockForgotPassword = lazy(() =>
   import(
     /* webpackChunkName: "ScreenLockForgotPassword" */
-    /* webpackPrefetch: true */
     'v2/features/ScreenLock/ScreenLockForgotPassword'
   )
 );
 const ReceiveAssets = lazy(() =>
   import(
     /* webpackChunkName: "ReceiveAssets" */
-    /* webpackPrefetch: true */
     'v2/features/ReceiveAssets/ReceiveAssets'
   )
 );
 const SwapAssetsFlow = lazy(() =>
   import(
     /* webpackChunkName: "SwapAssetsFlow" */
-    /* webpackPrefetch: true */
     'v2/features/SwapAssets/SwapAssetsFlow'
   )
 );
 const SignAndVerifyMessage = lazy(() =>
   import(
     /* webpackChunkName: "SignAndVerifyMessage" */
-    /* webpackPrefetch: true */
     'v2/features/SignAndVerifyMessage/SignAndVerifyMessage'
   )
 );
 const BroadcastTransactionFlow = lazy(() =>
   import(
     /* webpackChunkName: "BroadcastTransactionFlow" */
-    /* webpackPrefetch: true */
     'v2/features/BroadcastTransaction/BroadcastTransactionFlow'
   )
 );
 const InteractWithContractsFlow = lazy(() =>
   import(
     /* webpackChunkName: "InteractWithContractsFlow" */
-    /* webpackPrefetch: true */
     'v2/features/InteractWithContracts/InteractWithContractsFlow'
   )
 );
 const DeployContractsFlow = lazy(() =>
   import(
     /* webpackChunkName: "DeployContractsFlow" */
-    /* webpackPrefetch: true */
     'v2/features/DeployContracts/DeployContractsFlow'
   )
 );
 const DeFiZapFlow = lazy(() =>
   import(
     /* webpackChunkName: "DeFiZapFlow" */
-    /* webpackPrefetch: true */
     'v2/features/DeFiZap/DeFiZapFlow'
   )
 );
 const PurchaseMembershipStepper = lazy(() =>
   import(
     /* webpackChunkName: "PurchaseMembershipStepper" */
-    /* webpackPrefetch: true */
     'v2/features/PurchaseMembership/PurchaseMembershipStepper'
   )
 );
 const MembershipEducation = lazy(() =>
   import(
     /* webpackChunkName: "MembershipEducation" */
-    /* webpackPrefetch: true */
     'v2/features/PurchaseMembership/components/MembershipEducation'
   )
 );
 const BuyAssets = lazy(() =>
   import(
     /* webpackChunkName: "BuyAssetsForm" */
-    /* webpackPrefetch: true */
     'v2/features/BuyAssets/BuyAssetsForm'
   )
 );
