@@ -35,6 +35,11 @@ import defizap from '@assets/images/transactions/defizap.svg';
 import membershipPurchase from '@assets/images/transactions/membership-purchase.svg';
 import swap from '@assets/images/transactions/swap.svg';
 
+const RecentTxsTableContainer = styled.div`
+  max-height: 650px;
+  overflow: auto;
+`;
+
 interface Props {
   className?: string;
   accountsList: StoreAccount[];
